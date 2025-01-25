@@ -1,0 +1,13 @@
+[Unit]
+Description=Display the default camera fullscreen
+
+[Service]
+StandardOutput=journal
+Type=simple
+TimeoutStartSec=0
+ExecStart=/home/pi/bin/hdmi_cam.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
