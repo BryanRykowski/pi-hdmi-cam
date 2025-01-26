@@ -15,11 +15,13 @@ My goal with this project was to make a webcam capable of 1920x1080 at 30 fps th
 
 The [uvc-gadget](https://gitlab.freedesktop.org/camera/uvc-gadget) project and its forks make use of the [Linux UVC Gadget driver](https://docs.kernel.org/usb/gadget_uvc.html) to provide a class compliant USB video device. This is a pretty straightforward way to turn a Pi with USB OTG into a USB webcam.
  
-The problem is that the uvc-gadget project and the Linux UVC Gadget driver only support the UVC 1.1 specification (at least as of 2025-01). This means that we are limited to raw (YUYV422) or MJPEG video streams, no H264. Raw video streams at resolutions at or above 720p 30 fps are not suitable for the relatively low bandwidth (~300 Mbit real world max) USB 2.0 bus on the Pi Zero 2 W. MJPEG streams can easily push 1080p 60 fps over USB 2.0, and this is what most webcams do. My Pi Zero 2 W immediately jumps to 65°C and climbing when encoding an MJPEG stream, and that might be fine but it made me uncomfortable. I don't want to sacrifice the compact nature of Zero 2 by adding cooling, and this could be running for hours at a time.
+The problem is that the uvc-gadget project and the Linux UVC Gadget driver only support the UVC 1.1 specification (at least as of 2025-01). This means that we are limited to raw (YUYV422) or MJPEG video streams, no H264. Raw video streams at resolutions at or above 720p 30 fps are not suitable for the relatively low bandwidth (~300 Mbit real world max) USB 2.0 bus on the Pi Zero 2 W. MJPEG streams can easily push 1080p 60 fps over USB 2.0, and this is what most webcams do. My Pi Zero 2 W immediately jumps to 65°C and climbing when encoding an MJPEG stream, and that might be fine but it made me uncomfortable. I don't want to sacrifice the compact nature of the Zero 2 by adding cooling, and this could be running for hours at a time.
+
+USB 2.0 is easily enough for an H264 stream, and the Pi's GPU could encode it without the heat problems of CPU encoded MJPEG. Unfortunately, there is no sign of the kernel supporting a later version of UVC in the near future.
 
 ### Why not make it an ip camera?
 
-Using [raspicam-vid](https://www.raspberrypi.com/documentation/computers/camera_software.html#rpicam-vid) you could easily output a UDP or HTTP stream that would be suitable for many purposes. However, not all software that accepts video input can grab a network stream. Pretty much everything understands a UVC device like my HDMI capture dongle.
+Using [raspicam-vid](https://www.raspberrypi.com/documentation/computers/camera_software.html#rpicam-vid) you could easily output an H264 UDP or HTTP stream that would be suitable for many purposes. However, not all software that accepts video input can grab a network stream. Pretty much everything understands a UVC device like my HDMI capture dongle.
 
 ## Software
 
