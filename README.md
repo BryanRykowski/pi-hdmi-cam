@@ -11,6 +11,8 @@ This project turns a Raspberry Pi Zero 2 W into a webcam by combining it with an
 
 My goal with this project was to make a webcam capable of 1920x1080 at 30 fps that would be compatible with most streaming and video conferencing software.
 
+An improved version with web based controls can be found [here](https://github.com/BryanRykowski/pi-hdmi-webui).
+
 ### Why not use uvc-gadget?
 
 The [uvc-gadget](https://gitlab.freedesktop.org/camera/uvc-gadget) project and its forks make use of the [Linux UVC Gadget driver](https://docs.kernel.org/usb/gadget_uvc.html) to provide a class compliant USB video device. This is a pretty straightforward way to turn a Pi with USB OTG into a USB webcam.
